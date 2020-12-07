@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Vue.js and API using Axios</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0">
+
+    <link href="styles/reset.css" rel="stylesheet">
+    <link href="styles/helper.css" rel="stylesheet">
+    <link href="styles/grid.css" rel="stylesheet">
+    <link href="styles/style.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    <!-- Call Vue.js via CDN for templating -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+    <!-- Call the Vue.js router via unpkg -->
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <!-- Call Axios via CDN for API calls -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+</head>
+
+<body>
+    <!-- Beginning of block of template code with the ID of 'app'. The <template> tag doesn't do anything except block the W3C validators -->
+    <div id="app">
+        <template>
+
+            <!-- This section is what loads for the user initially. -->
+            <section v-if="info.data == ''" class="welcome">
+                <article>
+                    <h1>Welcome!</h1>
+                    <p>This is a small web application which can be used to search the current weather and five day forecast by city and state.</p>
+                    <!-- This is the search form for the city. -->
+                    <form action="index.html" method="GET">
+                        <input type="text" name="city" onfocus="this.value=''" placeholder="Portland, OR" required>
+                        <button type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
+                </article>
+            </section>
+
+            <!-- This is what loads after the user submits the search form. -->
+            <check v-if="info.data">
+            <section v-for="info as results">
+                <!-- This is the back arrow that takes the user back to the initial page load. It is located on the top left corner of the screen. -->
+                <a href="index.html">
+                    <i class="fas fa-arrow-circle-left"></i>
+                </a>
+                <article>
+                    <p>{{ info.data.data[0].datetime }}</p>
+                    <h1>{{ info.data.city_name }}, {{ info.data.state_code }}</h1>
+                </article>
+                <article class="section group">
+                    <!-- This aside contains the current day's temperature. -->
+                    <aside class="col span_3_of_12">
+                        <h2>{{ info.data.data[0].temp }}&deg;</h2>
+                    </aside>
+                    <!-- This aside has the icon picture and weather description -->
+                    <aside class="col span_3_of_12">
+                        <img v-bind:src="'https://www.weatherbit.io/static/img/icons/' + info.data.data[0].weather.icon + '.png'" class="icon" alt="An image depicting the current local weather.">
+                        <p>{{ info.data.data[0].weather.description }}</p>
+                    </aside>
+                    <aside class="col span_6_of_12">
+                        <table>
+                            <tr>
+                                <th>Rain</th>
+                                <th>Humidity</th>
+                            </tr>
+                            <tr>
+                                <td>{{ info.data.data[0].pop }}%</td>
+                                <td>{{ info.data.data[0].rh }}%</td>
+                            </tr>
+                            <tr>
+                                <th>Clouds</th>
+                                <th>Wind</th>
+                            </tr>
+                            <tr>
+                                <td>{{ info.data.data[0].clouds }}%</td>
+                                <td>{{ info.data.data[0].wind_spd }}m/s</td>
+                            </tr>
+                        </table>
+                    </aside>
+                </article>
+                <article>
+                    <p>Today</p>
+                    <p>{{ info.data.data[0].max_temp }}</p>
+                    <p>{{ info.data.data[0].low_temp }}</p>
+                </article>
+                <article>
+                    <table>
+                        <tr>
+                            <th>Rain</th>
+                            <th>Humidity</th>
+                            <th>Clouds</th>
+                            <th>Wind</th>
+                        </tr>
+                        <tr>
+                            <td>{{ info.data.data[0].pop }}%</td>
+                            <td>{{ info.data.data[0].rh }}%</td>
+                            <td>{{ info.data.data[0].clouds }}%</td>
+                            <td>{{ info.data.data[0].wind_spd }}m/s</td>
+                        </tr>
+                    </table>
+                </article>
+
+                <!-- Five Day Forecast-->
+                <div id="fivecast">
+                    
+                    <!-- First Day -->
+                    <div class="flex">
+                        <p class="date">{{ info.data.data[1].valid_date }}</p>
+                        <img v-bind:src="'https://www.weatherbit.io/static/img/icons/' + info.data.data[0].weather.icon + '.png'"
+                            class="small-icon" alt="An image depicting the current local weather.">
+                        <table class="temp">
+                            <tr>
+                                <td>{{ info.data.data[1].max_temp }}</td>
+                                <td>{{ info.data.data[1].low_temp }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <!-- Second Day -->
+                    <div class="flex border-top">
+                        <p class="date">{{ info.data.data[2].valid_date }}</p>
+                        <img v-bind:src="'https://www.weatherbit.io/static/img/icons/' + info.data.data[0].weather.icon + '.png'"
+                            class="small-icon" alt="An image depicting the current local weather.">
+                       <table class="temp">
+                            <tr>
+                                <td>{{ info.data.data[2].max_temp }}</td>
+                                <td>{{ info.data.data[2].low_temp }}</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Third Day -->
+                    <div class="flex border-top">
+                        <p class="date">{{ info.data.data[3].valid_date }}</p>
+                        <img v-bind:src="'https://www.weatherbit.io/static/img/icons/' + info.data.data[0].weather.icon + '.png'"
+                            class="small-icon" alt="An image depicting the current local weather.">
+                      <table class="temp">
+                            <tr>
+                                <td>{{ info.data.data[3].max_temp }}</td>
+                                <td>{{ info.data.data[3].low_temp }}</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Fourth Day -->
+                    <div class="flex border-top">
+                        <p class="date">{{ info.data.data[4].valid_date }}</p>
+                        <img v-bind:src="'https://www.weatherbit.io/static/img/icons/' + info.data.data[0].weather.icon + '.png'"
+                            class="small-icon" alt="An image depicting the current local weather.">
+                        <table class="temp">
+                            <tr>
+                                <td>{{ info.data.data[4].max_temp }}</td>
+                                <td>{{ info.data.data[4].low_temp }}</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Fifth Day -->
+                    <div class="flex border-top">
+                        <p class="date">{{ info.data.data[5].valid_date }}</p>
+                        <img v-bind:src="'https://www.weatherbit.io/static/img/icons/' + info.data.data[0].weather.icon + '.png'"
+                            class="small-icon" alt="An image depicting the current local weather.">
+                        <table class="temp">
+                            <tr>
+                                <td>{{ info.data.data[5].max_temp }}</td>
+                                <td>{{ info.data.data[5].low_temp }}</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+
+                <article class="data">
+                    <h3>Raw data from the API call (remove when you are done developing this page)</h3>
+                    <pre>{{ info }}</pre>
+                </article>
+            </section>
+            </check>
+            <!-- Did something go wrong? The message below will display. Check the Console to see what the error
+            message is, as well. -->
+            <section v-if="errored">
+                <p>We're sorry, we're not able to retrieve this information at the moment, please try back later</p>
+            </section>
+            <!-- This is where we loop through the results of our API call if it was successful. -->
+        </template>
+    </div>
+    <!-- End of block of template code -->
+
+    <!-- Block of code that makes the API call, then puts the data into an object called 'info'
+    and finally, allows use of the data in an HTML object with the ID of 'app'. -->
+    <script>
+        var router = new VueRouter({
+            mode: 'history',
+            routes: []
+        });
+        new Vue({
+            el: '#app',
+            router,
+            data() {
+                return {
+                    info: null,
+                    loading: true,
+                    errored: false
+                }
+            },
+            mounted() {
+                axios
+                    // OPTION 1 (DEFAULT)
+                    // NASA Astronomy Picture of the Day - https://api.nasa.gov/
+                    // Feel free to borrow my api_key for now but in the long run,
+                    // you should go to https://api.nasa.gov/ and get your own!
+                    // They are free.
+
+                    // .get("https://api.nasa.gov/planetary/apod?api_key=dJvbzNnl8WxP1e1amwx0t2zIb39aCZOciWlgdzG4")
+
+                    // OPTION 1.1
+                    // NASA Astronomy Picture of the Day by Date
+                    // Same as the previous but it requires a query string in the URL called date
+                    // in YYYY-MM-DD format
+
+                    // .get("https://api.nasa.gov/planetary/apod?api_key=dJvbzNnl8WxP1e1amwx0t2zIb39aCZOciWlgdzG4&date=" + this.$route.query.date)
+
+                    // OPTION 2
+                    // MERRIAM WEBSTER DICTIONARY - https://dictionaryapi.com/products/json
+                    // This one requires a query string in the URL called word
+                    // which is the word you want a definition for
+                    // Feel free to borrow my API key for now, but get your own at
+                    // https://dictionaryapi.com/
+                    // Depending on how much detail you want, this one could be challenging!
+                    // Refer to the documentation
+
+                    // .get("https://dictionaryapi.com/api/v3/references/collegiate/json/" + this.$route.query.word + "?key=fecdee74-1de2-45aa-b460-85c1238457d5") 
+
+
+                    // OPTION 3
+                    // WEATHERBIT.IO - https://www.weatherbit.io/api/weather-current
+                    // This one requires a query string in the URL called zip
+                    // which will return the current weather for that zip code
+                    // Get your own API key at http://weatherbit.io
+
+                    /* Original GET method for the APP below - This is for the Current Weather API
+                    .get("https://api.weatherbit.io/v2.0/current?key=a3f927c5a5414b9ca4e6f89c3436e4f8&units=I&country=US&postal_code=" + this.$route.query.zip) */
+
+
+                    // GET method for the 16 Day Forecast API below
+                    .get("https://api.weatherbit.io/v2.0/forecast/daily?key=a3f927c5a5414b9ca4e6f89c3436e4f8&units=I&country=US&city=" + this.$route.query.city)
+
+                    // GET method for 16 Day Forecast API with specific city
+                    //.get("https://api.weatherbit.io/v2.0/forecast/daily?key=a3f927c5a5414b9ca4e6f89c3436e4f8&units=I&country=US&city=Portland,OR")
+
+                    // OPTION 4
+                    // STUDIO GHIBLI FILMS - https://ghibliapi.herokuapp.com/
+                    // This one returns all of the films from Studio Ghibli
+                    // No API key needed! It's completely open.
+                    // This one is one of those APIs that returns OTHER API CALLS
+                    // as values for the deeper data, but you can use the upper level
+                    // data just fine
+                    // .get("https://ghibliapi.herokuapp.com/films")
+
+                    // OPTION 5
+                    // OPEN MOVIE DATABASE - http://www.omdbapi.com/
+                    // This one requires a query string in the URL called title
+                    // which will return data on movies based on their title
+                    // Please sign up for your own API key at omdbapi.com
+                    // .get("http://www.omdbapi.com/?apikey=f5c3bb72&t=" + this.$route.query.title)
+
+
+                    // OPTION 6
+                    // LAST FM - https://www.last.fm/api/
+                    // This one requires a query string in the URL called artist
+                    // which will return biographical info and images of whatever artist
+                    // you search for!
+
+                    // .get("http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&api_key=8f3924893681cc9846a450045f525c24&format=json&artist=" + this.$route.query.artist)
+                    // The line below helps us put the pertinent data from the call into the
+                    // info object. Specifically, we only need what's in the items part of
+                    // the API response
+
+                    .then(response => {
+                        this.info = response
+                        console.log(response)
+                    })
+                    .catch(error => {
+                        console.log(error)
+                        this.errored = true
+                    })
+                    .finally(() => this.loading = false)
+            }
+        })
+    </script>
+</body>
+
+</html>

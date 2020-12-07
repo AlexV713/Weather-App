@@ -1,0 +1,403 @@
+/*
+File Name: style.less
+Date: 05/26/19
+Programmer: Ellyn Culmsee
+*/
+
+@import 'palette.less';
+@import 'mixins.less';
+
+/* MOBILE STYLESHEET */
+
+html {
+    font-size: 18px;
+}
+
+/* Universal Styles */
+body {
+    font-family: "Quicksand", Verdana, sans-serif;
+    font-weight: 500;
+    h1, h2 {
+        font-weight: 700;
+        text-align: center;
+    }
+    h1 {
+        font-size: 2rem;
+    }
+    h2 {
+        font-size: 5rem;
+    }
+    p {
+        text-align: center;
+    }
+}
+
+/* Welcome Section & Search Form Styling */
+.welcome {
+    padding: 2rem;
+    h1 {
+        padding-bottom: 2rem;
+    }
+    form {
+        background-color: @lightColor;
+        border-radius: 2rem;
+        margin: 0 auto;
+        margin-top: 2rem;
+        padding: .25rem 0;
+        width: 15rem;
+        input, button {
+            background-color: transparent;
+            border: none;
+            font-size: 1rem;
+            height: 2rem;
+        }
+        input {
+            color: dimgray;
+            color: rgba(0, 0, 0, .5);
+            padding-left: .75rem;
+            width: 74%;
+        }
+        input:required {
+            box-shadow: none;
+        }
+        input:focus {
+            outline: none;
+        }
+        button {
+            width: 24%;
+            i {
+                color: @lightenColor1;
+            }
+        }
+    }
+}
+
+/* APP Styling */
+body {
+    background-color: @color3;
+    background-image: linear-gradient(to bottom, #4d70f2, #2a1aa5, #20006d);
+    background-repeat: no-repeat;
+    color: @lightColor;
+    div {
+        section {
+            .data {
+                display: none;
+            }
+            a {
+                color: @lightenColor1;
+                font-size: 2rem;
+                i {
+                    padding: .5rem;
+                    position: absolute;
+                }
+            }
+            article:nth-of-type(1) {
+                padding-top: 1rem;
+                p {
+                    padding-bottom: .5rem;
+                }
+            }
+            article:nth-of-type(2) {
+                padding-bottom: 2.5rem;
+                padding-top: 2.5rem;
+                aside:nth-of-type(1) {
+                }
+                aside:nth-of-type(2) {
+                    img {
+                        display: block;
+                        margin: 0 auto;
+                        width: 40;
+                    }
+                    p {
+                        font-size: .8rem;
+                    }
+                }
+                aside:nth-of-type(3) {
+                    display: none;
+                }
+            }
+            article:nth-of-type(3) {
+                margin: 0 auto;
+                width: 11rem;
+                P {
+                    display: inline;
+                }
+                p:nth-of-type(1) {
+                    font-weight: 700;
+                    padding-right: 2rem;
+                    text-transform: uppercase;
+                }
+                p:nth-of-type(2) {
+                    padding-right: 1rem;
+                }
+                p:nth-of-type(3) {
+                    color: rgba(255, 255, 255, .5);
+                }
+            }
+            article:nth-of-type(4) {
+                table {
+                    margin: 0 auto;
+                    tr {
+                        th, td {
+                            padding: 0 .75rem;
+                            text-align: left;
+                        }
+                        th {
+                            color: rgba(255, 255, 255, .8);
+                            font-weight: 700;
+                            padding-bottom: .5rem;
+                            padding-top: 2rem;
+                        }
+                        td {
+                            padding-bottom: 2rem;
+                        }
+                    }
+                }
+            }
+            #fivecast {
+                border-top: 1px solid rgba(255, 255, 255, .5);
+                padding-bottom: 1rem;
+                div {
+                    p:nth-of-type(1) {
+                        
+                    }
+                    img {
+                        width: 10%;
+                    }
+                    .temp {
+                        width: 25%;
+                        tr {
+                            td:nth-of-type(1) {
+                                text-align: left;
+                            }
+                            td:nth-of-type(2) {
+                                color: rgba(255, 255, 255, .5);
+                                text-align: right;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* Five Day Forecast Flexbox */
+
+.flex {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: flex-end;
+    -webkit-justify-content: flex-end;
+    align-items: center;
+    -webkit-align-items: center;
+    padding: .5rem 1rem;
+}
+
+.date {
+    margin-right: auto;
+}
+
+.temp {
+    margin-left: auto;
+}
+
+/* TABLET STYLESHEET
+
+The following CSS affects all screen sizes larger than 480 pixels wide. */
+
+@media only screen and (min-width: 481px) {
+    
+    /* Universal Styles */
+    html {
+        font-size: 25px;
+        body {
+            h2 {
+                font-size: 4rem;
+            }
+        }
+    }
+    
+    /* Welcome Section & Search Form Styling */
+    .welcome {
+        padding: 2rem 6rem;
+    }
+
+    /* APP Styling */
+    body {
+        div {
+            section {
+                article:nth-of-type(2) {
+                    padding: 3rem 3rem;
+                    aside:nth-of-type(1) {
+                        padding-top: 1.5rem;
+                    }
+                    aside:nth-of-type(2) {
+                        img {
+                            width: 40;
+                        }
+                    }
+                    aside:nth-of-type(3) {
+                        display: block;
+                        table {
+                            border-left: 1px solid rgba(255, 255, 255, .5);
+                            margin: 0 auto;
+                            width: 100%;
+                            tr:first-of-type {
+                                th {
+                                    padding-top: 1rem;
+                                }
+                            }
+                            tr {
+                                th:first-of-type, td:first-of-type {
+                                    padding-left: 1.25rem;
+                                }
+                                th, td {
+                                    padding-left: .5rem;
+                                    text-align: left;
+                                }
+                                th {
+                                    color: rgba(255, 255, 255, .8);
+                                    font-weight: 700;
+                                    padding-bottom: .5rem;
+                                }
+                                td {
+                                    padding-bottom: 1rem;
+                                }
+                            }
+                        }
+                    }
+                }
+                article:nth-of-type(3) {
+                    padding-bottom: 3rem;
+                }
+                article:nth-of-type(4) {
+                    display: none;
+                }
+                #fivecast {
+                    div {
+                        .temp {
+                            width: 18%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+/* DESKTOP STYLESHEET
+
+The following CSS affects all screen sizes larger than 1024 pixels wide. */
+
+@media only screen and (min-width: 1024px) {
+    
+    /* Universal Styles */
+    html {
+        font-size: 20px;
+        body {
+            h2 {
+                font-size: 7rem;
+            }
+        }
+    }
+
+    /* Welcome Section & Search Form Styling */
+    .welcome {
+        margin: 0 auto;
+        width: 60%;
+    }
+    
+    /* APP Styling */
+    body {
+        div {
+            section {
+                article:nth-of-type(2) {
+                    padding: 3rem 6rem;
+                    aside:nth-of-type(1) {
+                        padding-top: 1rem;
+                        h2 {
+                            text-align: right;
+                        }
+                    }
+                    aside:nth-of-type(2) {
+                        img {
+                            width: 7rem;
+                        }
+                    }
+                    aside:nth-of-type(3) {
+                        table {
+                            tr {
+                                th:first-of-type, td:first-of-type {
+                                    padding-left: 2rem;
+                                }
+                                th:nth-of-type(2), td:nth-of-type(2) {
+                              
+                                }
+                            }
+                        }
+                    }
+                }
+                #fivecast {
+                    padding: 2rem 6rem;
+                    div {
+                        background-color: rgba(73, 98, 231, .5);
+                        border-radius: .25rem;
+                        padding: 1rem;
+                        margin: 0 .25rem;
+                        img {
+                            width: 50%;
+                        }
+                        .temp {
+                            width: 100%;
+                            tr {
+                                td {
+                                    text-align: center;
+                                }
+                                td:nth-of-type(1) {
+                                    padding-left: 1rem;
+                                }
+                                td:nth-of-type(2) {
+                                    padding-right: 1rem;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    #fivecast {
+        display: flex;
+        display: -webkit-flex;
+        align-items: stretch;
+        -webkit-align-items: stretch;
+        justify-content: space-around;
+        -webkit-justify-content: space-around;
+    }
+
+    .flex {
+        height: auto;
+        width: auto;
+        flex-direction: column;
+    }
+
+    .date {
+        margin-bottom: 1rem;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .temp {
+        margin-top: 1rem;
+        margin-right: auto;
+    }
+
+    .temp td {
+        padding-right: 0.2rem;
+        padding-left: 0.2rem;
+    }
+
+}
